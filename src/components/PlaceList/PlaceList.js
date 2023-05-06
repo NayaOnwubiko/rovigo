@@ -1,4 +1,5 @@
 import { createRef, useEffect, useState } from 'react';
+import PlaceDetails from '../PlaceDetails/PlaceDetails';
 
 function PlaceList({ places, childClicked, isLoading, type, setType, rating, setRating }){
 
@@ -42,11 +43,17 @@ function PlaceList({ places, childClicked, isLoading, type, setType, rating, set
                     </form>
                     </>
                 )}
-                <ul>
+                <div>
                     {places?.map((place, i) => (
-                        
+                        <div ref={elRefs[i]} key={i}>
+                            <PlaceDetails
+                                place={place}
+                                selected={Number(childClicked) === i}
+                                refProp={elRefs[i]}
+                            />
+                        </div>
                     ))}
-                </ul>
+                </div>
             </div>
         </>
     )

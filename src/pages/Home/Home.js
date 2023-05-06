@@ -1,6 +1,6 @@
 import './Home.scss';
 import { useEffect, useState } from 'react';
-import { PlacesData } from '../../components/Api/Api';
+import { PlacesData } from '../../components/PlacesData/PlacesData';
 import PlaceSearch from '../../components/PlaceSearch/PlaceSearch';
 import PlaceList from '../../components/PlaceList/PlaceList';
 
