@@ -9,7 +9,7 @@ function AttractionDisplay({searchedAttraction}){
                     <ul>
                         {searchedAttraction.map(item => {
                             return <AttractionDetails
-                                        key={item.location_id}
+                                        key={item.name}
                                         name={item.name}
                                         phone={item.phone}
                                         website={item.website}

@@ -1,6 +1,6 @@
-function AttractionDetails({location_id, name, phone, photo, website, address}){
+function AttractionDetails({name, phone, photo, website, address}){
     return (
-           <li key={location_id}>
+           <li key={name}>
             <div>
                 <img
                     src={photo}

@@ -1,15 +1,14 @@
-function HotelDetails({location_id, name, phone, photo, website, address}){
+function HotelDetails({listing_key, name, price, photo, rating}){
     return (
-           <li key={location_id}>
+           <li key={listing_key}>
             <div>
                 <img
                     src={photo}
                     alt={name}
                 />
                 <h4>{name}</h4>
-                <p>{phone}</p>
-                <p>{address}</p>
-                <p>{website}</p>
+                <p>Rating: {rating}</p>
+                <p>Price range: {price}</p>
             </div>
         </li>
     )

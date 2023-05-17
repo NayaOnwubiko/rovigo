@@ -9,8 +9,8 @@ import AttractionDisplay from '../../components/AttractionDisplay/AttractionDisp
 
 
 function Home() {
+    const [searchedHotel, setSearchedHotel] = useState('');
     const [searchedRestaurant, setSearchedRestaurant] = useState(null);
-    const [searchedHotel, setSearchedHotel] = useState(null);
     const [searchedAttraction, setSearchedAttraction] = useState(null);
     
 
@@ -39,34 +39,13 @@ function Home() {
                 const foundLongitude = result.longitude;
         
         //Use the returned longitude and latitude to chain requests to the restaurant, hotel & attraction endpoints
-        const restaurantOptions = {
-            method: 'GET',
-            url: 'https://travel-advisor.p.rapidapi.com/restaurants/list-by-latlng',
-            params: {
-                    latitude: foundLatitude,
-                    longitude: foundLongitude
-            },
-            headers: {
-                    'X-RapidAPI-Key': process.env.REACT_APP_KEY,
-                    'X-RapidAPI-Host': 'travel-advisor.p.rapidapi.com'
-            }
-        };
-
-        axios
-            .request(restaurantOptions)
-            .then(function (response) {
-                setSearchedRestaurant(response.data.data);
-            })
-            .catch(function (error) {
-                console.error(error);
-            })
-
-         const hotelOptions = {
+        const hotelOptions = {
             method: 'GET',
             url: 'https://travel-advisor.p.rapidapi.com/hotels/list-by-latlng',
             params: {
                     latitude: foundLatitude,
-                    longitude: foundLongitude
+                    longitude: foundLongitude,
+                    limit: 5
             },
             headers: {
                     'X-RapidAPI-Key': process.env.REACT_APP_KEY,
@@ -77,7 +56,32 @@ function Home() {
         axios
             .request(hotelOptions)
             .then(function (response) {
-                setSearchedHotel(response.data.data);
+                let hotelData = response.data.data;
+                setSearchedHotel(hotelData);
+            })
+            .catch(function (error) {
+                console.error(error);
+            })
+
+        const restaurantOptions = {
+            method: 'GET',
+            url: 'https://travel-advisor.p.rapidapi.com/restaurants/list-by-latlng',
+            params: {
+                    latitude: foundLatitude,
+                    longitude: foundLongitude,
+                    limit: 5
+            },
+            headers: {
+                    'X-RapidAPI-Key': process.env.REACT_APP_KEY,
+                    'X-RapidAPI-Host': 'travel-advisor.p.rapidapi.com'
+            }
+        };
+
+        axios
+            .request(restaurantOptions)
+            .then(function (response) {
+                let restaurantData = response.data.data;
+                setSearchedRestaurant(restaurantData);
             })
             .catch(function (error) {
                 console.error(error);
@@ -88,7 +92,8 @@ function Home() {
             url: 'https://travel-advisor.p.rapidapi.com/attractions/list-by-latlng',
             params: {
                     latitude: foundLatitude,
-                    longitude: foundLongitude
+                    longitude: foundLongitude,
+                    limit: 5
             },
             headers: {
                     'X-RapidAPI-Key': process.env.REACT_APP_KEY,
@@ -99,7 +104,8 @@ function Home() {
         axios
             .request(attractionsOptions)
             .then(function (response) {
-                setSearchedAttraction(response.data.data);
+                let attractionsData = response.data.data;
+                setSearchedAttraction(attractionsData);
             })
             .catch(function (error) {
                 console.error(error);
@@ -129,16 +135,10 @@ function Home() {
                     />
                     <button type='submit'>Search</button>
                 </form>
-                <section>
-                    <RestaurantDisplay searchedRestaurant={searchedRestaurant} />
-                </section>
-                <section>
                     <HotelDisplay searchedHotel={searchedHotel} />
-                </section>
-                <section>
+                    <RestaurantDisplay searchedRestaurant={searchedRestaurant} />
                     <AttractionDisplay searchedAttraction={searchedAttraction} />
-                </section>
-        </>    
+        </>
     );
     
 }
