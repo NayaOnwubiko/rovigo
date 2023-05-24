@@ -1,6 +1,7 @@
 import './Home.scss';
 import axios from 'axios';
 import { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 // import PlaceSearch from '../../components/PlaceSearch/PlaceSearch';
 import RestaurantDisplay from '../../components/RestaurantDisplay/RestaurantDisplay';
 import HotelDisplay from '../../components/HotelDisplay/HotelDisplay';
@@ -124,6 +125,15 @@ function Home() {
                     <PlaceSearch handleSearch={handleSearch} />
                 </section> */}
                 <h2>Find your destination</h2>
+                    <NavLink to="/trips">
+                        <p>Trips</p>
+                    </NavLink>
+                    <NavLink to="/signup">
+                        <p>SignUp</p>
+                    </NavLink>
+                    <NavLink to="/login">
+                        <p>Login</p>
+                    </NavLink>
                <form 
                     onSubmit={handleSearch}
                 >
@@ -131,7 +141,6 @@ function Home() {
                         type='text'
                         placeholder='Search Destination...'
                         name='location'
-                        list='locationlist'
                     />
                     <button type='submit'>Search</button>
                 </form>
