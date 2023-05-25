@@ -1,38 +1,35 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import TripsItem from "../TripsItem/TripsItem";
-import CreateTripsModal from "../CreateTripsModal/CreateTripsModal";
 
 function TripsList(){
     const [tripsList, setTripsList] = useState(null);
-    const [show, setShow] = useState(false);
-
-    const handleClick = () => {
-        setShow(true);
-    };
+    const navigate = useNavigate();
 
     useEffect(() => {
+        const jwtToken = localStorage.authToken;
+        if (!jwtToken) {
+            navigate("/");
+            return ;
+        }
         axios
-            .get("http://localhost:8080/trips")
+            .get("http://localhost:8080/trips", {
+                headers: {
+                    Authorization: `Bearer ${jwtToken}`
+                }
+            })
             .then((response) => {
                 setTripsList(response.data);
             })
             .catch((error) => {
                 console.error("Could not aceess API:" + error);
             });
-    }, []);
+    }, [navigate]);
 
     if (!tripsList) {
         return (
-            <>
-             <h4 onClick={handleClick}>+ Create Trip</h4>
-                <CreateTripsModal
-                    onClose={() => setShow(false)}
-                    show={show} 
-                    setShow={setShow}
-            />
             <p>Loading....</p>
-            </>
             );
     }
 
