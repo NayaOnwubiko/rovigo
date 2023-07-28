@@ -1,0 +1,56 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+
+.search {
+    display: flex;
+    justify-content: center;
+    height: 20rem;
+
+    .container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .searchInput {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 18rem;
+            background-image: url("../../assets/images/hero.png");
+            background-size: cover;
+
+            .searchItem {
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+                height: 50px;
+                gap: 0.625rem;
+                border-radius: 10px;
+                background-color: $white;
+
+                img {
+                    width: 20px;
+                    height: 20px;
+                    margin: 10px;
+                }
+
+                input {
+                    border: none;
+                    outline: none;
+                }
+            }
+
+            button {
+                width: 120px;
+                height: 50px;
+                border: none;
+                background-color: $green;
+                color: $white;
+                border-radius: 10px;
+                cursor: pointer;
+            }
+        }
+    }
+}

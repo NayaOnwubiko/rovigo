@@ -1,18 +1,25 @@
-function RestaurantDetails({location_id, name, phone, photo, website, address}){
-    return (
-        <li key={location_id}>
-            <div>
-                <img
-                    src={photo}
-                    alt={name}
-                />
-                <h4>{name}</h4>
-                <p>{phone}</p>
-                <p>{address}</p>
-                <p>{website}</p>
-            </div>
-        </li>
-    )
+import "./RestaurantDetails.scss";
+
+function RestaurantDetails({
+  location_id,
+  restaurant_name,
+  restaurant_phone,
+  restaurant_photo,
+  restaurant_website,
+  restaurant_address,
+  ranking_catgory,
+}) {
+  return (
+    <div className="restaurant">
+      <li key={location_id}>
+        <img src={restaurant_photo} alt={restaurant_name} />
+        <span className="title">{restaurant_name}</span>
+        <span className="desc">{restaurant_phone}</span>
+        <span className="address">{restaurant_address}</span>
+        <span className="desc">{restaurant_website}</span>
+      </li>
+    </div>
+  );
 }
 
 export default RestaurantDetails;
