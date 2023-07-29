@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./HotelDetails.scss";
 // import SaveTripModal from "../SaveTripModal/SaveTripModal";
 
 function HotelDetails({
@@ -18,11 +19,11 @@ function HotelDetails({
   return (
     <>
       <li key={listing_key}>
-        <div>
+        <div className="hotel">
           <img src={hotel_photo} alt={hotel_name} />
           <h4>{hotel_name}</h4>
-          <p>Rating: {rating}</p>
-          <p>Price range: {price}</p>
+          <p className="rating">Rating: {rating}</p>
+          <p className="price">Price range: {price}</p>
           <button onClick={handleClick}>Save</button>
         </div>
       </li>
