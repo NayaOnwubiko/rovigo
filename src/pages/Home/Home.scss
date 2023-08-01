@@ -12,6 +12,10 @@
         flex-direction: column;
         align-items: center;
 
+        h2 {
+            padding: 15px;
+        }
+
         .searchInput {
             display: flex;
             align-items: center;
@@ -55,6 +59,71 @@
     }
 }
 
+.hero {
+    display: flex;
+    width: 100%;
+    height: 350px;
+    background-color: $lightpurple;
+
+    .left {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 0.5rem;
+        gap: 2px;
+
+        .title {
+            font-size: 25px;
+            font-weight: 700;
+            color: $darkpurple;
+            padding: 0.25rem 0.5rem;
+        }
+
+        .desc {
+            font-size: 18px;
+            font-weight: 500;
+            padding: 0.5rem;
+            line-height: 1.5rem;
+        }
+    }
+
+    .right {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.5rem;
+
+        img {
+            width: 100%;
+            object-fit: cover;
+        }
+    }
+
+    .heroBtn {
+        color: $white;
+        background-color: $darkpurple;
+        font-weight: 500;
+        padding: 0.75rem;
+        border-radius: 15px;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-evenly;
+    }
+}
+
 .results {
-    background-color: $orange;
+    &-hotel {
+        background-color: $purple;
+    }
+
+    &-restaurant {
+        background-color: $orange;
+    }
+
+    &-attraction {
+        background-color: $lightgrey;
+    }
 }

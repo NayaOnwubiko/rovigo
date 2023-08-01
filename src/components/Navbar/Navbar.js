@@ -1,6 +1,12 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./Navbar.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faBus,
+  faUserPlus,
+  faRightToBracket,
+} from "@fortawesome/free-solid-svg-icons";
 
 function Navbar() {
   const [active, setActive] = useState(false);
@@ -33,9 +39,18 @@ function Navbar() {
           </Link>
         </div>
         <div className="links">
-          <span>Trips</span>
-          <span>Sign Up</span>
-          <span>Login</span>
+          <div className="navItem default">
+            <FontAwesomeIcon icon={faBus} />
+            <span>Trips</span>
+          </div>
+          <div className="navItem">
+            <FontAwesomeIcon icon={faUserPlus} />
+            <span>Sign Up</span>
+          </div>
+          <div className="navItem">
+            <FontAwesomeIcon icon={faRightToBracket} />
+            <span>Login</span>
+          </div>
         </div>
       </div>
     </div>

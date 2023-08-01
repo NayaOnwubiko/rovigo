@@ -2,6 +2,9 @@ import "./Home.scss";
 import axios from "axios";
 import Navbar from "../../components/Navbar/Navbar";
 import SearchIcon from "../../assets/images/search.png";
+import MapImage from "../../assets/images/location.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlaneDeparture } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import RestaurantDisplay from "../../components/RestaurantDisplay/RestaurantDisplay";
 import HotelDisplay from "../../components/HotelDisplay/HotelDisplay";
@@ -16,7 +19,7 @@ function Home() {
     event.preventDefault();
     const searchedLocation = event.target.location.value;
 
-    //Search the location endpoint to get the longitude and latitude
+    // Search the location endpoint to get the longitude and latitude
     const options = {
       method: "GET",
       url: "https://travel-advisor.p.rapidapi.com/locations/search",
@@ -36,7 +39,7 @@ function Home() {
         const foundLatitude = result.latitude;
         const foundLongitude = result.longitude;
 
-        //Use the returned longitude and latitude to chain requests to the restaurant, hotel & attraction endpoints
+        // Use the returned longitude and latitude to chain requests to the restaurant, hotel & attraction endpoints
         const hotelOptions = {
           method: "GET",
           url: "https://travel-advisor.p.rapidapi.com/hotels/list-by-latlng",
@@ -135,10 +138,32 @@ function Home() {
           </div>
         </div>
       </div>
+      <div className="hero">
+        <div className="left">
+          <span className="title">Plan your trips easily</span>
+          <span className="desc">
+            Make a personalized itinerary of Hotels, Restaurants & Attractions,
+            guided by user tips and reviews
+          </span>
+          <button className="heroBtn">
+            <FontAwesomeIcon icon={faPlaneDeparture} />
+            Start exploring
+          </button>
+        </div>
+        <div className="right">
+          <img src={MapImage} alt="map" />
+        </div>
+      </div>
       <div className="results">
-        <HotelDisplay searchedHotel={searchedHotel} />
-        <RestaurantDisplay searchedRestaurant={searchedRestaurant} />
-        <AttractionDisplay searchedAttraction={searchedAttraction} />
+        <div className="results-hotel">
+          <HotelDisplay searchedHotel={searchedHotel} />
+        </div>
+        <div className="results-restaurant">
+          <RestaurantDisplay searchedRestaurant={searchedRestaurant} />
+        </div>
+        <div className="results-attraction">
+          <AttractionDisplay searchedAttraction={searchedAttraction} />
+        </div>
       </div>
     </>
   );
