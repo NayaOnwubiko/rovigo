@@ -1,7 +1,8 @@
 @use "../../styles/partials/variables" as *;
 @use "../../styles/partials/mixins" as *;
 
-ul {
-    text-decoration: none;
-    list-style: none;
+.carousel-container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
 }

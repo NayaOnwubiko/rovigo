@@ -43,7 +43,7 @@ function Home() {
           params: {
             latitude: foundLatitude,
             longitude: foundLongitude,
-            limit: 5,
+            limit: 10,
           },
           headers: {
             "X-RapidAPI-Key": process.env.REACT_APP_KEY,
@@ -67,7 +67,7 @@ function Home() {
           params: {
             latitude: foundLatitude,
             longitude: foundLongitude,
-            limit: 5,
+            limit: 10,
           },
           headers: {
             "X-RapidAPI-Key": process.env.REACT_APP_KEY,
@@ -91,7 +91,7 @@ function Home() {
           params: {
             latitude: foundLatitude,
             longitude: foundLongitude,
-            limit: 5,
+            limit: 10,
           },
           headers: {
             "X-RapidAPI-Key": process.env.REACT_APP_KEY,
@@ -135,9 +135,11 @@ function Home() {
           </div>
         </div>
       </div>
-      <HotelDisplay searchedHotel={searchedHotel} />
-      <RestaurantDisplay searchedRestaurant={searchedRestaurant} />
-      <AttractionDisplay searchedAttraction={searchedAttraction} />
+      <div className="results">
+        <HotelDisplay searchedHotel={searchedHotel} />
+        <RestaurantDisplay searchedRestaurant={searchedRestaurant} />
+        <AttractionDisplay searchedAttraction={searchedAttraction} />
+      </div>
     </>
   );
 }

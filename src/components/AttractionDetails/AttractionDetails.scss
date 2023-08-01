@@ -1,0 +1,49 @@
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
+
+.attraction_card {
+    width: 225px;
+    height: 330px;
+    border: 1px solid $white;
+    border-radius: 15px;
+    background-color: $white;
+    box-shadow: 0px 0px 16px -6px rgba(0, 0, 0, 0.59);
+    margin: 0.5rem 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+
+    img {
+        width: 100%;
+        height: 50%;
+        padding: 2px 2px;
+        border-radius: 10px;
+        object-fit: cover;
+        box-shadow: 0px 0px 16px -6px rgba(0, 0, 0, 0.59);
+    }
+
+    .info {
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+
+        h4 {
+            font-weight: 500;
+            font-size: 18px;
+            color: $black;
+        }
+
+        .address {
+            font-weight: 300;
+            font-size: 15px;
+        }
+
+        .phone {
+            font-weight: 300;
+            font-size: 15px;
+        }
+    }
+
+
+}

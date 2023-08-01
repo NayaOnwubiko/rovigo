@@ -10,14 +10,12 @@ function RestaurantDetails({
   ranking_catgory,
 }) {
   return (
-    <div className="restaurant">
-      <li key={location_id}>
-        <img src={restaurant_photo} alt={restaurant_name} />
-        <span className="title">{restaurant_name}</span>
-        <span className="desc">{restaurant_phone}</span>
-        <span className="address">{restaurant_address}</span>
-        <span className="desc">{restaurant_website}</span>
-      </li>
+    <div className="restaurant" key={location_id}>
+      <img src={restaurant_photo} alt={restaurant_name} />
+      <span className="title">{restaurant_name}</span>
+      <span className="desc">{restaurant_phone}</span>
+      <span className="address">{restaurant_address}</span>
+      <span className="desc">{restaurant_website}</span>
     </div>
   );
 }

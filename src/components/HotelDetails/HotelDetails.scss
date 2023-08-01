@@ -1,20 +1,20 @@
 @use "../../styles/partials/variables" as *;
 @use "../../styles/partials/mixins" as *;
 
-li {
-    text-decoration: none;
-}
 
-.hotel {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: 1.25rem;
-    width: 20rem;
+.hotel-item {
+    background-color: #f0f0f0;
+    padding: 20px 10px;
+    text-align: center;
+    min-width: 200px;
+    height: 300px;
+    margin: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
     img {
         width: 100%;
-        height: 100%;
+        height: 70%;
         object-fit: cover;
     }
 

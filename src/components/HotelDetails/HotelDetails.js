@@ -18,15 +18,13 @@ function HotelDetails({
 
   return (
     <>
-      <li key={listing_key}>
-        <div className="hotel">
-          <img src={hotel_photo} alt={hotel_name} />
-          <h4>{hotel_name}</h4>
-          <p className="rating">Rating: {rating}</p>
-          <p className="price">Price range: {price}</p>
-          <button onClick={handleClick}>Save</button>
-        </div>
-      </li>
+      <div key={listing_key} className="hotel-item">
+        <img src={hotel_photo} alt={hotel_name} />
+        <h4>{hotel_name}</h4>
+        <p className="rating">Rating: {rating}</p>
+        <p className="price">Price range: {price}</p>
+        <button onClick={handleClick}>Save</button>
+      </div>
       {/* <SaveTripModal
         onClose={() => setShow(false)}
         show={show}

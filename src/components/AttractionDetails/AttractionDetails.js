@@ -1,14 +1,16 @@
+import "./AttractionDetails.scss";
+
 function AttractionDetails({ name, phone, photo, website, address }) {
   return (
-    <li key={name}>
-      <div>
-        <img src={photo} alt={name} />
+    <div className="attraction_card">
+      <img src={photo} alt={name} />
+      <div className="info">
         <h4>{name}</h4>
-        <p>{phone}</p>
-        <p>{address}</p>
-        <p>{website}</p>
+        <p className="phone">{phone}</p>
+        <p className="address">{address}</p>
+        <p className="website">{website}</p>
       </div>
-    </li>
+    </div>
   );
 }
 
