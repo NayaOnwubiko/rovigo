@@ -32,8 +32,8 @@ function SignUp() {
 
   return (
     <>
-      <h1>SignUp Page</h1>
-      <section>
+      <div className="signup">
+        <h2>Sign up to Rovigo & start planning that trip</h2>
         <form onSubmit={handleSignUp}>
           <label>
             Name
@@ -49,7 +49,10 @@ function SignUp() {
           </label>
           <button>Sign Up</button>
         </form>
-      </section>
+        <div>
+          <span>Already a member? Sign In to your Rovigo Account</span>
+        </div>
+      </div>
     </>
   );
 }

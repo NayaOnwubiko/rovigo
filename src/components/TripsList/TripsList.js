@@ -1,5 +1,6 @@
+import "./TripsList.scss";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import TripsItem from "../TripsItem/TripsItem";
 
@@ -32,18 +33,17 @@ function TripsList() {
   }
 
   return (
-    <>
-      <h2>Trips List</h2>
-      <section>
-        {tripsList.map((trips) => {
-          return (
-            <li key={trips.id}>
+    <div className="trips-list">
+      {tripsList.map((trips) => {
+        return (
+          <Link to="/trip/123" className="link">
+            <div className="details" key={trips.id}>
               <TripsItem tripsItem={trips} />
-            </li>
-          );
-        })}
-      </section>
-    </>
+            </div>
+          </Link>
+        );
+      })}
+    </div>
   );
 }
 

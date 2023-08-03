@@ -6,6 +6,8 @@
     justify-content: center;
     height: 20rem;
 
+    @include prevent-zoom;
+
     .container {
         width: 100%;
         display: flex;

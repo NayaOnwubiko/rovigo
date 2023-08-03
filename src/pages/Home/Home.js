@@ -5,36 +5,49 @@ import SearchIcon from "../../assets/images/search.png";
 import MapImage from "../../assets/images/location.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlaneDeparture } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import RestaurantDisplay from "../../components/RestaurantDisplay/RestaurantDisplay";
 import HotelDisplay from "../../components/HotelDisplay/HotelDisplay";
 import AttractionDisplay from "../../components/AttractionDisplay/AttractionDisplay";
 
 function Home() {
+  // State variables to store data and loading status
   const [searchedHotel, setSearchedHotel] = useState(null);
   const [searchedRestaurant, setSearchedRestaurant] = useState(null);
   const [searchedAttraction, setSearchedAttraction] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [resultsLoaded, setResultsLoaded] = useState(false); // State variable to indicate if results have loaded
+  const [searchedLocation, setSearchedLocation] = useState(""); // Store the searched location
 
   const handleSearch = (event) => {
     event.preventDefault();
-    const searchedLocation = event.target.location.value;
+    const location = event.target.location.value;
+    setSearchedLocation(location);
+    setLoading(true);
+    setResultsLoaded(false);
+  };
 
-    // Search the location endpoint to get the longitude and latitude
-    const options = {
-      method: "GET",
-      url: "https://travel-advisor.p.rapidapi.com/locations/search",
-      params: {
-        query: searchedLocation,
-      },
-      headers: {
-        "X-RapidAPI-Key": process.env.REACT_APP_KEY,
-        "X-RapidAPI-Host": "travel-advisor.p.rapidapi.com",
-      },
-    };
+  useEffect(() => {
+    if (!loading) {
+      return;
+    }
 
-    axios
-      .request(options)
-      .then(function (response) {
+    const fetchData = async () => {
+      try {
+        // Search the location endpoint to get the longitude and latitude
+        const options = {
+          method: "GET",
+          url: "https://travel-advisor.p.rapidapi.com/locations/search",
+          params: {
+            query: searchedLocation,
+          },
+          headers: {
+            "X-RapidAPI-Key": process.env.REACT_APP_KEY,
+            "X-RapidAPI-Host": "travel-advisor.p.rapidapi.com",
+          },
+        };
+
+        const response = await axios.request(options);
         const result = response.data.data[0].result_object;
         const foundLatitude = result.latitude;
         const foundLongitude = result.longitude;
@@ -54,16 +67,6 @@ function Home() {
           },
         };
 
-        axios
-          .request(hotelOptions)
-          .then(function (response) {
-            let hotelData = response.data.data;
-            setSearchedHotel(hotelData);
-          })
-          .catch(function (error) {
-            console.error(error);
-          });
-
         const restaurantOptions = {
           method: "GET",
           url: "https://travel-advisor.p.rapidapi.com/restaurants/list-by-latlng",
@@ -77,16 +80,6 @@ function Home() {
             "X-RapidAPI-Host": "travel-advisor.p.rapidapi.com",
           },
         };
-
-        axios
-          .request(restaurantOptions)
-          .then(function (response) {
-            let restaurantData = response.data.data;
-            setSearchedRestaurant(restaurantData);
-          })
-          .catch(function (error) {
-            console.error(error);
-          });
 
         const attractionsOptions = {
           method: "GET",
@@ -102,20 +95,37 @@ function Home() {
           },
         };
 
-        axios
-          .request(attractionsOptions)
-          .then(function (response) {
-            let attractionsData = response.data.data;
-            setSearchedAttraction(attractionsData);
-          })
-          .catch(function (error) {
-            console.error(error);
-          });
-      })
-      .catch(function (error) {
+        // Make parallel requests to fetch hotel, restaurant and attraction data
+        const [hotelResponse, restaurantResponse, attractionsResponse] =
+          await Promise.all([
+            axios.request(hotelOptions),
+            axios.request(restaurantOptions),
+            axios.request(attractionsOptions),
+          ]);
+
+        const hotelData = hotelResponse.data.data;
+        const restaurantData = restaurantResponse.data.data;
+        const attractionsData = attractionsResponse.data.data;
+
+        setSearchedHotel(hotelData);
+        setSearchedRestaurant(restaurantData);
+        setSearchedAttraction(attractionsData);
+
+        setResultsLoaded(true);
+        setLoading(false);
+      } catch (error) {
         console.error(error);
-      });
-  };
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [loading, searchedLocation]);
+
+  function SkeletonLoading() {
+    // Replace with custom skeleton loading animation
+    return <div>Loading....</div>;
+  }
 
   return (
     <>
@@ -138,33 +148,47 @@ function Home() {
           </div>
         </div>
       </div>
-      <div className="hero">
-        <div className="left">
-          <span className="title">Plan your trips easily</span>
-          <span className="desc">
-            Make a personalized itinerary of Hotels, Restaurants & Attractions,
-            guided by user tips and reviews
-          </span>
-          <button className="heroBtn">
-            <FontAwesomeIcon icon={faPlaneDeparture} />
-            Start exploring
-          </button>
+      {!resultsLoaded &&
+        !loading && ( // Show the hero div when the results haven't loaded and loading is false
+          <div className="hero">
+            <div className="left">
+              <span className="title">Plan your trips easily</span>
+              <span className="desc">
+                Make a personalized itinerary of Hotels, Restaurants &
+                Attractions, guided by user tips and reviews
+              </span>
+              <button className="heroBtn">
+                <FontAwesomeIcon icon={faPlaneDeparture} />
+                Start exploring
+              </button>
+            </div>
+            <div className="right">
+              <img src={MapImage} alt="map" />
+            </div>
+          </div>
+        )}
+      {loading ? (
+        <SkeletonLoading />
+      ) : resultsLoaded ? (
+        // Show the results div when the results have loaded
+        <div className="results">
+          <div className="results-hotel">
+            {searchedHotel ? (
+              <HotelDisplay searchedHotel={searchedHotel} />
+            ) : null}
+          </div>
+          <div className="results-restaurant">
+            {searchedRestaurant ? (
+              <RestaurantDisplay searchedRestaurant={searchedRestaurant} />
+            ) : null}
+          </div>
+          <div className="results-attraction">
+            {searchedAttraction ? (
+              <AttractionDisplay searchedAttraction={searchedAttraction} />
+            ) : null}
+          </div>
         </div>
-        <div className="right">
-          <img src={MapImage} alt="map" />
-        </div>
-      </div>
-      <div className="results">
-        <div className="results-hotel">
-          <HotelDisplay searchedHotel={searchedHotel} />
-        </div>
-        <div className="results-restaurant">
-          <RestaurantDisplay searchedRestaurant={searchedRestaurant} />
-        </div>
-        <div className="results-attraction">
-          <AttractionDisplay searchedAttraction={searchedAttraction} />
-        </div>
-      </div>
+      ) : null}
     </>
   );
 }

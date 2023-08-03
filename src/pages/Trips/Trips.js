@@ -2,6 +2,7 @@ import "./Trips.scss";
 import TripsList from "../../components/TripsList/TripsList";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import Navbar from "../../components/Navbar/Navbar";
 import CreateTripsModal from "../../components/CreateTripsModal/CreateTripsModal";
 
 function Trips() {
@@ -28,16 +29,17 @@ function Trips() {
 
   return (
     <>
-      <h1>Trips Page</h1>
-      <div>
+      <Navbar />
+      <div className="trips">
+        <h2>Trips</h2>
         <button onClick={handleClick}>+ Create Trip</button>
         <CreateTripsModal
           onClose={() => setShow(false)}
           show={show}
           setShow={setShow}
         />
+        <TripsList />
       </div>
-      <TripsList />
     </>
   );
 }

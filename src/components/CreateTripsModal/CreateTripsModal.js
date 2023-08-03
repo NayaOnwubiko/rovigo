@@ -1,4 +1,6 @@
 import "./CreateTripsModal.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useContext } from "react";
@@ -40,20 +42,28 @@ function CreateTripsModal({ setShow, show }) {
   };
 
   return (
-    <div className="modal">
-      <h4 className="modal__title">Create a new trip </h4>
-      <form onSubmit={handleCreate}>
-        <label>
-          Trip Name
-          <input
-            type="text"
-            placeholder="Enter your trip name"
-            name="trip_name"
-          ></input>
-        </label>
-        <button type="submit">Create</button>
-        <button onClick={handleCancel}>Cancel</button>
-      </form>
+    <div className="modal_container">
+      <div className="modal">
+        <h4 className="modal__title">Create a new trip</h4>
+        <FontAwesomeIcon
+          icon={faCircleXmark}
+          className="modal__close"
+          onClick={handleCancel}
+        />
+        <div className="modal__form">
+          <form onSubmit={handleCreate}>
+            <label>
+              Trip Name
+              <input
+                type="text"
+                placeholder="Enter your trip name"
+                name="trip_name"
+              ></input>
+            </label>
+            <button type="submit">Create</button>
+          </form>
+        </div>
+      </div>
     </div>
   );
 }

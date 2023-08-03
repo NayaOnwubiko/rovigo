@@ -12,3 +12,7 @@
         @content;
     }
 }
+
+@mixin prevent-zoom {
+    touch-action: manipulation;
+}
