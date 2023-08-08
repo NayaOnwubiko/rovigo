@@ -1,72 +1,52 @@
-import axios from "axios";
 import "./Login.scss";
+import newRequest from "../../utils/newRequest";
 import { Link, useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
-import { AuthContext } from "../../context/authContext";
+import { useState } from "react";
 
 function LogIn() {
-  const [inputs, setInputs] = useState({
-    email: "",
-    password: "",
-  });
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
 
   const navigate = useNavigate();
 
-  const { login } = useContext(AuthContext);
-
-  const handleChange = (event) => {
-    setInputs((prev) => ({ ...prev, [event.target.name]: event.target.value }));
-  };
-
-  const handleLogin = async (event) => {
-    event.preventDefault();
+  const handleLogin = async (e) => {
+    e.preventDefault();
 
     try {
-      await login(inputs);
-      navigate("/trips");
-    } catch (error) {
-      alert("Unable to log in, sorry");
-      console.error(error);
+      const res = await newRequest.post("/auth/login", { email, password });
+      localStorage.setItem("currentUser", JSON.stringify(res.data));
+      navigate("/");
+    } catch (err) {
+      setError(err.response.data);
     }
-    axios
-      .post("http://localhost:8080/users/login", {
-        email: event.target.email.value,
-        password: event.target.password.value,
-      })
-      .then((response) => {
-        localStorage.authToken = response.data.token;
-        navigate("/trips");
-      })
-      .catch((error) => {
-        alert("Unable to login, sorry");
-        console.error(error);
-      });
   };
-
-  const authToken = localStorage.authToken;
-
-  if (authToken) {
-    navigate("/trips");
-  }
 
   return (
     <>
       <div className="login">
         <h2>Welcome back to Rovigo.</h2>
-        <form>
+        <form onSubmit={handleLogin}>
           <label>
             Email
-            <input type="text" name="email" onChange={handleChange}></input>
+            <input
+              type="text"
+              name="email"
+              placeholder="email"
+              onChange={(e) => setEmail(e.target.value)}
+            />
           </label>
           <label>
             Password
             <input
               type="password"
               name="password"
-              onChange={handleChange}
+              placeholder="password"
+              onChange={(e) => setPassword(e.target.value)}
             ></input>
           </label>
-          <button onClick={handleLogin}>Sign In</button>
+          <button type="submit">Sign In</button>
+          {error && error}
         </form>
         <span>
           Not a member? <Link to="/signup">Create an Account</Link> to enjoy the

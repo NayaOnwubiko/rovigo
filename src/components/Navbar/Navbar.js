@@ -40,16 +40,22 @@ function Navbar() {
         </div>
         <div className="links">
           <div className="navItem default">
-            <FontAwesomeIcon icon={faBus} />
-            <span>Trips</span>
+            <Link className="link" to="/trips">
+              <FontAwesomeIcon icon={faBus} />
+              <span>Trips</span>
+            </Link>
           </div>
           <div className="navItem">
-            <FontAwesomeIcon icon={faUserPlus} />
-            <span>Sign Up</span>
+            <Link className="link" to="/signup">
+              <FontAwesomeIcon icon={faUserPlus} />
+              <span>Sign Up</span>
+            </Link>
           </div>
           <div className="navItem">
-            <FontAwesomeIcon icon={faRightToBracket} />
-            <span>Login</span>
+            <Link className="link" to="/login">
+              <FontAwesomeIcon icon={faRightToBracket} />
+              <span>Login</span>
+            </Link>
           </div>
         </div>
       </div>

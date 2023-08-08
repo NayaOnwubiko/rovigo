@@ -1,6 +1,8 @@
 import "./app.scss";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Home from "./pages/Home/Home";
+import Navbar from "./components/Navbar/Navbar";
 import SignUp from "./pages/SignUp/SignUp";
 import Trips from "./pages/Trips/Trips";
 import SingleTrip from "./pages/SingleTrip/SingleTrip";
@@ -8,17 +10,56 @@ import Login from "./pages/LogIn/LogIn";
 import CreateTrip from "./pages/CreateTrip/CreateTrips";
 
 function App() {
+  const queryClient = new QueryClient();
+
+  const Layout = () => {
+    return (
+      <div className="app">
+        <QueryClientProvider client={queryClient}>
+          <Navbar />
+          <Outlet />
+        </QueryClientProvider>
+      </div>
+    );
+  };
+
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Layout />,
+      children: [
+        {
+          path: "/",
+          element: <Home />,
+        },
+        {
+          path: "/signup",
+          element: <SignUp />,
+        },
+        {
+          path: "/login",
+          element: <Login />,
+        },
+        {
+          path: "/trips",
+          element: <Trips />,
+        },
+        {
+          path: "/trip/:id",
+          element: <SingleTrip />,
+        },
+        {
+          path: "/create-trip",
+          element: <CreateTrip />,
+        },
+      ],
+    },
+  ]);
+
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/trips" element={<Trips />} />
-        <Route path="/trip/:id" element={<SingleTrip />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/create-trip" element={<CreateTrip />} />
-      </Routes>
-    </BrowserRouter>
+    <div>
+      <RouterProvider router={router} />
+    </div>
   );
 }
 

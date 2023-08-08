@@ -1,48 +1,42 @@
 import "./TripsList.scss";
-import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import axios from "axios";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import TripsItem from "../TripsItem/TripsItem";
+import newRequest from "../../utils/newRequest";
 
 function TripsList() {
-  const [tripsList, setTripsList] = useState(null);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const jwtToken = localStorage.authToken;
-    if (!jwtToken) {
-      navigate("/");
-      return;
-    }
-    axios
-      .get("http://localhost:8080/trips", {
-        headers: {
-          Authorization: `Bearer ${jwtToken}`,
-        },
-      })
-      .then((response) => {
-        setTripsList(response.data);
-      })
-      .catch((error) => {
-        console.error("Could not aceess API:" + error);
-      });
-  }, [navigate]);
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
-  if (!tripsList) {
-    return <p>Start adding trips</p>;
+  const { isLoading, error, data } = useQuery(
+    ["triplist"],
+    () =>
+      newRequest
+        .get(`/trips?userId=${currentUser._id}`)
+        .then((res) => res.data),
+    {
+      cacheTime: 5 * 60 * 1000, // Cache data for 5 minutes
+    }
+  );
+
+  if (isLoading) {
+    return "loading...";
+  }
+
+  if (error) {
+    return "error";
   }
 
   return (
     <div className="trips-list">
-      {tripsList.map((trips) => {
-        return (
-          <Link to="/trip/123" className="link">
-            <div className="details" key={trips.id}>
-              <TripsItem tripsItem={trips} />
-            </div>
-          </Link>
-        );
-      })}
+      {data.map((trips) => (
+        <Link to={`/trip/${trips._id}`} className="link" key={trips._id}>
+          <div className="details">
+            <TripsItem tripsItem={trips} />
+          </div>
+        </Link>
+      ))}
     </div>
   );
 }

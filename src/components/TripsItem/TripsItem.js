@@ -7,7 +7,7 @@ function TripsItem({ tripsItem }) {
         src="https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
         alt="cover"
       />
-      <h4>{tripsItem.trip_name}</h4>
+      <h4>{tripsItem.title}</h4>
     </div>
   );
 }

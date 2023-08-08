@@ -45,10 +45,10 @@
         .navItem {
             display: flex;
             align-items: center;
+            justify-content: space-between;
             border: 1px solid $white;
             border-radius: 25px;
             padding: 8px;
-            gap: 5px;
 
             &.default {
                 border: none;

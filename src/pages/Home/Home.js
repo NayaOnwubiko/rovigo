@@ -1,6 +1,5 @@
 import "./Home.scss";
 import axios from "axios";
-import Navbar from "../../components/Navbar/Navbar";
 import SearchIcon from "../../assets/images/search.png";
 import MapImage from "../../assets/images/location.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -129,7 +128,6 @@ function Home() {
 
   return (
     <>
-      <Navbar />
       <div className="search">
         <div className="container">
           <h2>Find your destination</h2>

@@ -2,19 +2,18 @@ import "./Trips.scss";
 import TripsList from "../../components/TripsList/TripsList";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import Navbar from "../../components/Navbar/Navbar";
 import CreateTripsModal from "../../components/CreateTripsModal/CreateTripsModal";
 
 function Trips() {
   const [show, setShow] = useState(false);
 
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
   const handleClick = () => {
     setShow(true);
   };
 
-  const authToken = localStorage.authToken;
-
-  if (!authToken) {
+  if (!currentUser) {
     return (
       <div>
         <h3>
@@ -29,7 +28,6 @@ function Trips() {
 
   return (
     <>
-      <Navbar />
       <div className="trips">
         <h2>Trips</h2>
         <button onClick={handleClick}>+ Create Trip</button>
@@ -37,6 +35,7 @@ function Trips() {
           onClose={() => setShow(false)}
           show={show}
           setShow={setShow}
+          userId={currentUser._id}
         />
         <TripsList />
       </div>
