@@ -11,8 +11,34 @@ import {
   faPhone,
   faAddressBook,
 } from "@fortawesome/free-solid-svg-icons";
+import { useQuery } from "@tanstack/react-query";
+import newRequest from "../../utils/newRequest";
+import { useParams } from "react-router-dom";
 
 function SingleTrip() {
+  // Get the trip ID from the route parameter
+  const { id } = useParams();
+
+  // Fetch data for each category separately
+  const fetchHotels = async () => {
+    const response = await newRequest.get(`/hotels/${id}`);
+    return response.data;
+  };
+
+  const fetchRestaurants = async () => {
+    const response = await newRequest.get(`/restaurants/${id}`);
+    return response.data;
+  };
+
+  const fetchAttractions = async () => {
+    const response = await newRequest.get(`/attractions/${id}`);
+    return response.data;
+  };
+
+  const { data: hotels } = useQuery(["hotels", id], fetchHotels);
+  const { data: restaurants } = useQuery(["restaurants", id], fetchRestaurants);
+  const { data: attractions } = useQuery(["attractions", id], fetchAttractions);
+
   return (
     <>
       <div className="single-trip">
@@ -22,55 +48,76 @@ function SingleTrip() {
             <FontAwesomeIcon icon={faBed} />
             <span>Hotels</span>
           </div>
-          <img
-            src="https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-            alt="hotel cover"
-          />
-          <h4>
-            <FontAwesomeIcon icon={faSuitcase} />
-            Hotel Bagudu
-          </h4>
-          <p className="rating">
-            <FontAwesomeIcon icon={faStar} />
-            Rating: 4.5
-          </p>
-          <p className="price">
-            <FontAwesomeIcon icon={faMoneyBill1} />
-            Price range: $60
-          </p>
+          {hotels && hotels.length > 0 ? (
+            <ul>
+              {hotels.map((hotel) => (
+                <li key={hotel._id}>
+                  <img src={hotel.photo} alt="hotel cover" />{" "}
+                  <h4>
+                    <FontAwesomeIcon icon={faSuitcase} />
+                    {hotel.name}
+                  </h4>
+                  <p className="rating">
+                    <FontAwesomeIcon icon={faStar} />
+                    Rating: {hotel.rating}
+                  </p>
+                  <p className="price">
+                    <FontAwesomeIcon icon={faMoneyBill1} />
+                    Price range: ${hotel.price}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>No hotels added for this trip yet</p>
+          )}
         </div>
         <div className="item">
           <div className="title">
             <FontAwesomeIcon icon={faUtensils} />
             <span>Restaurants</span>
           </div>
-          <img
-            src="https://robbreport.com/wp-content/uploads/2021/10/restaurant_place_setting_jay_wennington_unsplash.jpg"
-            alt="restaurant cover"
-          />
-          <h4>Kenturkey Fried Beans</h4>
-          <span className="desc">
-            <FontAwesomeIcon icon={faPhone} />
-            +768-987-7654
-          </span>
-          <span className="address">
-            <FontAwesomeIcon icon={faAddressBook} />
-            231 Bagudu Street, Spain
-          </span>
-          <span className="desc">
-            <FontAwesomeIcon icon={faGlobe} />
-            Website
-          </span>
+          {restaurants && restaurants.length > 0 ? (
+            <ul>
+              {restaurants.map((restaurant) => (
+                <li key={restaurant._id}>
+                  <img src={restaurant.photo} alt="restaurant cover" />
+                  <h4>{restaurant.name}</h4>
+                  <span className="desc">
+                    <FontAwesomeIcon icon={faPhone} />
+                    {restaurant.phone}
+                  </span>
+                  <span className="address">
+                    <FontAwesomeIcon icon={faAddressBook} />
+                    {restaurant.address}
+                  </span>
+                  <span className="desc">
+                    <FontAwesomeIcon icon={faGlobe} />
+                    {restaurant.website}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>No restaurants added for this trip yet.</p>
+          )}
         </div>
         <div className="item">
           <div className="title">
             <FontAwesomeIcon icon={faMapLocationDot} />
             <span>Attractions</span>
           </div>
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6xDoOxRyka2f7EptRWcoi6AUfhCRY2x7iPQ&usqp=CAU"
-            alt="attraction cover"
-          />
+          {attractions && attractions.length > 0 ? (
+            <ul>
+              {attractions.map((attraction) => (
+                <li key={attraction._id}>
+                  <img src={attraction.name} alt="attraction cover" />
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>No attractions added for this trip yet.</p>
+          )}
         </div>
       </div>
     </>

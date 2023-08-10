@@ -7,7 +7,6 @@ import SignUp from "./pages/SignUp/SignUp";
 import Trips from "./pages/Trips/Trips";
 import SingleTrip from "./pages/SingleTrip/SingleTrip";
 import Login from "./pages/LogIn/LogIn";
-import CreateTrip from "./pages/CreateTrip/CreateTrips";
 
 function App() {
   const queryClient = new QueryClient();
@@ -47,10 +46,6 @@ function App() {
         {
           path: "/trip/:id",
           element: <SingleTrip />,
-        },
-        {
-          path: "/create-trip",
-          element: <CreateTrip />,
         },
       ],
     },

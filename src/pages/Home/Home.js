@@ -18,9 +18,11 @@ function Home() {
   const [resultsLoaded, setResultsLoaded] = useState(false); // State variable to indicate if results have loaded
   const [searchedLocation, setSearchedLocation] = useState(""); // Store the searched location
 
-  const handleSearch = (event) => {
-    event.preventDefault();
-    const location = event.target.location.value;
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const location = e.target.location.value;
     setSearchedLocation(location);
     setLoading(true);
     setResultsLoaded(false);
@@ -170,21 +172,30 @@ function Home() {
       ) : resultsLoaded ? (
         // Show the results div when the results have loaded
         <div className="results">
-          <div className="results-hotel">
-            {searchedHotel ? (
-              <HotelDisplay searchedHotel={searchedHotel} />
-            ) : null}
-          </div>
-          <div className="results-restaurant">
-            {searchedRestaurant ? (
-              <RestaurantDisplay searchedRestaurant={searchedRestaurant} />
-            ) : null}
-          </div>
-          <div className="results-attraction">
-            {searchedAttraction ? (
-              <AttractionDisplay searchedAttraction={searchedAttraction} />
-            ) : null}
-          </div>
+          {searchedHotel && (
+            <div className="results-hotel">
+              <HotelDisplay
+                searchedHotel={searchedHotel}
+                currentUser={currentUser}
+              />
+            </div>
+          )}
+          {searchedRestaurant && (
+            <div className="results-restaurant">
+              <RestaurantDisplay
+                searchedRestaurant={searchedRestaurant}
+                currentUser={currentUser}
+              />
+            </div>
+          )}
+          {searchedAttraction && (
+            <div className="results-attraction">
+              <AttractionDisplay
+                searchedAttraction={searchedAttraction}
+                currentUser={currentUser}
+              />
+            </div>
+          )}
         </div>
       ) : null}
     </>

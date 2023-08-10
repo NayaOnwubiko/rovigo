@@ -1,38 +1,14 @@
 import "./HotelDisplay.scss";
 import HotelDetails from "../HotelDetails/HotelDetails";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import Slide from "../../components/Slide/Slide";
 
 function HotelDisplay({ searchedHotel }) {
-  // Carousel slider settings
-  const settings = {
-    dots: false,
-    infinte: true,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 2,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-        },
-      },
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 2,
-        },
-      },
-    ],
-  };
   if (searchedHotel) {
     return (
       <>
         <h3>Hotels:</h3>
         <div className="carousel-container">
-          <Slider {...settings}>
+          <Slide slidesToShow={2} arrowsScroll={2}>
             {searchedHotel.map((hotel) => {
               return (
                 <HotelDetails
@@ -49,7 +25,7 @@ function HotelDisplay({ searchedHotel }) {
                 />
               );
             })}
-          </Slider>
+          </Slide>
         </div>
       </>
     );

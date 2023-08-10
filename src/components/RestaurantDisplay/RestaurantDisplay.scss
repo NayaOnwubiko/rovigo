@@ -2,7 +2,7 @@
 @use "../../styles/partials/mixins" as *;
 
 .carousel-container {
-    width: 80%;
+    width: 100%;
     margin: 0 auto;
     overflow: hidden;
     padding: 20px;
@@ -10,9 +10,6 @@
 
 .carousel-item {
     background-color: #f0f0f0;
-    padding: 20px;
     text-align: center;
-    min-width: 200px;
-    height: 200px;
-    margin: 10px;
+    height: 325px;
 }

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import "./HotelDetails.scss";
-// import SaveTripModal from "../SaveTripModal/SaveTripModal";
 
 function HotelDetails({
   listing_key,
@@ -25,17 +24,6 @@ function HotelDetails({
         <p className="price">Price range: {price}</p>
         <button onClick={handleClick}>Save</button>
       </div>
-      {/* <SaveTripModal
-        onClose={() => setShow(false)}
-        show={show}
-        setShow={setShow}
-        listing_key={listing_key}
-        hotel_name={hotel_name}
-        price={price}
-        hotel_photo={hotel_photo}
-        rating={rating}
-        ranking_category={ranking_category}
-      /> */}
     </>
   );
 }

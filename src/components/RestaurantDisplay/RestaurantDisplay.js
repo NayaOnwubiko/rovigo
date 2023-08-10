@@ -1,11 +1,10 @@
 import "./RestaurantDisplay.scss";
 import RestaurantDetails from "../RestaurantDetails/RestaurantDetails";
-import { Carousel } from "react-responsive-carousel";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { useState } from "react";
 import SaveTripModal from "../SaveTripModal/SaveTripModal";
+import Slide from "../../components/Slide/Slide";
 
-function RestaurantDisplay({ searchedRestaurant }) {
+function RestaurantDisplay({ searchedRestaurant, currentUser }) {
   const [showModal, setShowModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
 
@@ -19,14 +18,7 @@ function RestaurantDisplay({ searchedRestaurant }) {
       <>
         <h3>Restaurants:</h3>
         <div className="carousel-container">
-          <Carousel
-            showArrows={true}
-            showStatus={false}
-            showIndicators={false}
-            infiniteLoop={true}
-            emulateTouch={true}
-            selectedItem={1}
-          >
+          <Slide slidesToShow={2} arrowsScroll={2}>
             {searchedRestaurant.map((item) => {
               return (
                 <>
@@ -49,14 +41,17 @@ function RestaurantDisplay({ searchedRestaurant }) {
                 </>
               );
             })}
-          </Carousel>
+          </Slide>
+        </div>
+        {showModal && (
           <SaveTripModal
             show={showModal}
             setShow={setShowModal}
             item={selectedItem}
-            userId={currentUser._id}
+            userId={currentUser ? currentUser._id : null}
+            itemType="restaurant"
           />
-        </div>
+        )}
       </>
     );
   }

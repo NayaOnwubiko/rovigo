@@ -1,23 +1,14 @@
 import "./TripsList.scss";
-import { useNavigate, Link } from "react-router-dom";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 import TripsItem from "../TripsItem/TripsItem";
 import newRequest from "../../utils/newRequest";
 
 function TripsList() {
-  const navigate = useNavigate();
-
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
-  const { isLoading, error, data } = useQuery(
-    ["triplist"],
-    () =>
-      newRequest
-        .get(`/trips?userId=${currentUser._id}`)
-        .then((res) => res.data),
-    {
-      cacheTime: 5 * 60 * 1000, // Cache data for 5 minutes
-    }
+  const { isLoading, error, data } = useQuery(["triplist"], () =>
+    newRequest.get(`/trips?userId=${currentUser._id}`).then((res) => res.data)
   );
 
   if (isLoading) {
