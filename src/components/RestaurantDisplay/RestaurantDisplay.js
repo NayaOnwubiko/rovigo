@@ -2,6 +2,8 @@ import "./RestaurantDisplay.scss";
 import RestaurantDetails from "../RestaurantDetails/RestaurantDetails";
 import { useState } from "react";
 import SaveTripModal from "../SaveTripModal/SaveTripModal";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUtensils, faHeart } from "@fortawesome/free-solid-svg-icons";
 import Slide from "../../components/Slide/Slide";
 
 function RestaurantDisplay({ searchedRestaurant, currentUser }) {
@@ -16,7 +18,12 @@ function RestaurantDisplay({ searchedRestaurant, currentUser }) {
   if (searchedRestaurant) {
     return (
       <>
-        <h3>Restaurants:</h3>
+        <div className="restaurant-section">
+          <span>
+            <FontAwesomeIcon icon={faUtensils} />
+          </span>
+          <h3>Restaurants</h3>
+        </div>
         <div className="carousel-container">
           <Slide slidesToShow={2} arrowsScroll={2}>
             {searchedRestaurant.map((item) => {
@@ -36,7 +43,7 @@ function RestaurantDisplay({ searchedRestaurant, currentUser }) {
                     ranking_category={item.ranking_category}
                   />
                   <button onClick={() => handleShowModal(item)}>
-                    Save To Trip
+                    <FontAwesomeIcon icon={faHeart} />
                   </button>
                 </>
               );

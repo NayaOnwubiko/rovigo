@@ -1,13 +1,12 @@
 @use "../../styles/partials/variables" as *;
 @use "../../styles/partials/mixins" as *;
 
-
-.hotel-section {
+.attraction-section {
     display: flex;
     align-items: center;
     justify-content: flex-start;
     width: 90%;
-    background: $purple;
+    background: $lightgrey;
     margin: 10px auto;
     gap: 10px;
 

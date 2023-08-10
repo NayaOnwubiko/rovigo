@@ -1,5 +1,6 @@
-import { useState } from "react";
 import "./HotelDetails.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar, faMoneyBill1 } from "@fortawesome/free-regular-svg-icons";
 
 function HotelDetails({
   listing_key,
@@ -9,20 +10,21 @@ function HotelDetails({
   rating,
   ranking_category,
 }) {
-  const [show, setShow] = useState(false);
-
-  const handleClick = () => {
-    setShow(true);
-  };
-
   return (
     <>
       <div key={listing_key} className="hotel-item">
         <img src={hotel_photo} alt={hotel_name} />
-        <h4>{hotel_name}</h4>
-        <p className="rating">Rating: {rating}</p>
-        <p className="price">Price range: {price}</p>
-        <button onClick={handleClick}>Save</button>
+        <div className="text">
+          <span>
+            <h4>{hotel_name}</h4>
+          </span>
+          <p className="rating">
+            <FontAwesomeIcon icon={faStar} /> {rating}
+          </p>
+          <p className="price">
+            <FontAwesomeIcon icon={faMoneyBill1} /> {price}
+          </p>
+        </div>
       </div>
     </>
   );

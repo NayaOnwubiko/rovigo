@@ -1,15 +1,22 @@
 @use "../../styles/partials/variables" as *;
 @use "../../styles/partials/mixins" as *;
 
-.carousel-container {
-    width: 100%;
-    margin: 0 auto;
-    overflow: hidden;
-    padding: 20px;
+.restaurant-section {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 90%;
+    background-color: $orange;
+    margin: 10px auto;
+    gap: 10px;
+
+    h3 {
+        font-size: 20px;
+    }
 }
 
-.carousel-item {
-    background-color: #f0f0f0;
-    text-align: center;
-    height: 325px;
+.carousel-container {
+    width: 95%;
+    margin: auto;
+    padding: 0.5rem;
 }

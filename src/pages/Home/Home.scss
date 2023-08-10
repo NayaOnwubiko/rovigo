@@ -23,7 +23,7 @@
             align-items: center;
             justify-content: center;
             width: 100%;
-            height: 18rem;
+            height: 20rem;
             background-image: url("../../assets/images/hero.png");
             background-size: cover;
 
@@ -64,16 +64,14 @@
 .hero {
     display: flex;
     width: 100%;
-    height: 350px;
+    height: 21rem;
     background-color: $lightpurple;
 
     .left {
         display: flex;
         flex-direction: column;
-        flex-wrap: wrap;
-        justify-content: center;
+        justify-content: space-evenly;
         padding: 0.5rem;
-        gap: 2px;
 
         .title {
             font-size: 25px;
@@ -92,18 +90,17 @@
 
     .right {
         height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0.5rem;
+
 
         img {
-            width: 100%;
-            object-fit: cover;
+
+            height: 100%;
+            object-fit: contain;
         }
     }
 
     .heroBtn {
+        width: 10rem;
         color: $white;
         background-color: $darkpurple;
         font-weight: 500;
@@ -112,17 +109,26 @@
         border: none;
         cursor: pointer;
         display: flex;
-        justify-content: space-evenly;
+        justify-content: center;
+        gap: 0.5rem;
     }
 }
 
 .results {
     &-hotel {
-        background-color: $purple;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        background-color: $white;
     }
 
     &-restaurant {
-        background-color: $orange;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        background-color: $white;
     }
 
     &-attraction {

@@ -4,7 +4,7 @@
 .restaurant {
     height: 200px;
     margin: 10px;
-    background-color: #f0f0f0;
+    background-color: $white;
     padding: 20px;
     text-align: center;
     min-width: 200px;
@@ -15,24 +15,32 @@
         object-fit: cover;
     }
 
-    .title {
-        font-weight: 500;
-        font-size: 20px;
-        padding: 10px 0px;
-    }
+    .text {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 7px;
 
-    .desc {
-        font-weight: 300;
-        font-size: 15px;
-    }
+        .title {
+            font-weight: 500;
+            font-size: 20px;
+        }
 
-    .address {
-        font-weight: 300;
-        font-size: 15px;
-    }
+        .desc {
+            font-weight: 300;
+            font-size: 15px;
+        }
 
-    .website {
-        font-weight: 300;
-        font-size: 15px;
+        .address {
+            font-weight: 300;
+            font-size: 15px;
+        }
+
+        .website {
+            font-weight: 300;
+            font-size: 15px;
+        }
     }
 }
