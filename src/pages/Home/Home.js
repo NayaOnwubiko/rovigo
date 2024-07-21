@@ -8,9 +8,10 @@ import { useState, useEffect } from "react";
 import RestaurantDisplay from "../../components/RestaurantDisplay/RestaurantDisplay";
 import HotelDisplay from "../../components/HotelDisplay/HotelDisplay";
 import AttractionDisplay from "../../components/AttractionDisplay/AttractionDisplay";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 function Home() {
-  // State variables to store data and loading status
   const [searchedHotel, setSearchedHotel] = useState([]);
   const [searchedRestaurant, setSearchedRestaurant] = useState([]);
   const [searchedAttraction, setSearchedAttraction] = useState([]);
@@ -27,7 +28,7 @@ function Home() {
     setSearchedLocation(location);
     setLoading(true);
     setResultsLoaded(false);
-    setError(null); // Reset error state on new search
+    setError(null);
   };
 
   useEffect(() => {
@@ -37,7 +38,6 @@ function Home() {
 
     const fetchData = async () => {
       try {
-        // Search the location endpoint to get the longitude and latitude
         const options = {
           method: "GET",
           url: "https://travel-advisor.p.rapidapi.com/locations/search",
@@ -57,7 +57,6 @@ function Home() {
 
         const { latitude, longitude } = result;
 
-        // Use the returned longitude and latitude to chain requests to the restaurant, hotel & attraction endpoints
         const hotelOptions = {
           method: "GET",
           url: "https://travel-advisor.p.rapidapi.com/hotels/list-by-latlng",
@@ -88,7 +87,6 @@ function Home() {
           },
         };
 
-        // Make parallel requests to fetch hotel, restaurant and attraction data
         const [hotelResponse, restaurantResponse, attractionsResponse] =
           await Promise.all([
             axios.request(hotelOptions),
@@ -113,7 +111,16 @@ function Home() {
   }, [loading, searchedLocation]);
 
   function SkeletonLoading() {
-    return <div>Loading....</div>;
+    return (
+      <div className="skeleton-loading">
+        <Skeleton height={30} width={`80%`} style={{ marginBottom: "10px" }} />
+        <Skeleton height={200} />
+        <Skeleton height={30} width={`80%`} style={{ marginBottom: "10px" }} />
+        <Skeleton height={200} />
+        <Skeleton height={30} width={`80%`} style={{ marginBottom: "10px" }} />
+        <Skeleton height={200} />
+      </div>
+    );
   }
 
   function ErrorMessage() {
